@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 bool hasPrimKey = false;
@@ -11,10 +13,30 @@ bool enterLibrary = false;
 bool enterBasement = false;
 bool drawerOpened = false;
 
+void printArt(string filename)
+{
+    ifstream file(filename);
+
+    if (!file)
+    {
+        cout << "Could not load ASCII art: " << filename << endl;
+        return;
+    }
+
+    string line;
+
+    while (getline(file, line))
+    {
+        cout << line << endl;
+    }
+
+    file.close();
+}
+
 void bedroom()
 {
     int choice;
-    cout << "\n-----BEDROOM-----\n";
+    printArt("ascii/bedroom.txt");
     if (!enterBedroom)
     {
         cout << "You enter a dusty bedroom.\n";
@@ -57,12 +79,14 @@ void bedroom()
         }
         if (hasMainPhoto && !hasPrimKey)
         {
+            printArt("ascii/bedroom_broken.txt");
             cout << "You show the photo of the owner to the mirror.\n";
             cout << "The cracked mirror shatters and reveals a shiny key.\n";
             hasPrimKey = true;
         }
         else if (hasPrimKey)
         {
+            printArt("ascii/bedroom_broken.txt");
             cout << "The mirror is already shattered.\n";
         }
     }
@@ -104,7 +128,7 @@ void library()
 {
     int choice;
 
-    cout << "\n--- LIBRARY ---\n";
+    printArt("ascii/library.txt");
     if (!enterLibrary)
     {
         cout << "You enter a room filled with dusty books.\n";
@@ -133,6 +157,7 @@ void library()
     {
         if (!hasSecKey)
         {
+            printArt("ascii/library_secret.txt");
             cout << "\nYou pull the strange book.\n";
             cout << "CLICK!\n";
             cout << "A hidden compartment opens.\n";
@@ -159,7 +184,7 @@ void basement()
 {
     int choice;
 
-    cout << "\n--- BASEMENT ---\n";
+    printArt("ascii/basement.txt");
     if (!enterBasement)
     {
         cout << "You slowly walk down the stairs.\n";
@@ -180,18 +205,21 @@ void basement()
         {
             if (drawerOpened)
             {
+                printArt("ascii/basement_open.txt");
                 cout << "You open the chest.\n";
                 cout << "Inside, you find a photograph of the previous owner.\n";
                 hasMainPhoto = true;
             }
             else
             {
+                printArt("ascii/basement.txt");
                 cout << "The chest is locked somehow.\n";
                 cout << "Maybe there is a clue somewhere else in the house.\n";
             }
         }
         else
         {
+            printArt("ascii/basement.txt");
             cout << "The chest is empty.\n";
         }
     }
@@ -199,12 +227,14 @@ void basement()
     {
         if (!hasFlashlight)
         {
+            printArt("ascii/basement.txt");
             cout << "\nYou search the room and find an old flashlight.\n";
             cout << "Unfortunately, it has no batteries.\n";
             hasFlashlight = true;
         }
         else
         {
+            printArt("ascii/basement.txt");
             cout << "\nYou search the basement again but find nothing.\n";
         }
     }
@@ -222,9 +252,7 @@ void basement()
 
 int main()
 {
-    cout << "=================================" << endl;
-    cout << "          THE LOST KEY" << endl;
-    cout << "=================================" << endl;
+    printArt("ascii/title.txt");
     cout << "You wake up in a dark room. Rain pounds against the windows, and the lights are out." << endl
          << "You try the front door, but it's locked." << endl
          << "On a nearby table, you find a note:" << endl;
@@ -232,9 +260,7 @@ int main()
     while (true)
     {
 
-        cout << "\n=================================\n";
-        cout << "             HOUSE\n";
-        cout << "=================================\n";
+        printArt("ascii/house.txt");
 
         cout << "1. Go to Bedroom" << endl
              << "2. Go to Library" << endl
@@ -273,14 +299,12 @@ int main()
                 cout << "The door opens!\n";
                 cout << "You run outside into the rain.\n\n";
 
-                cout << "=================================\n";
-                cout << "          YOU ESCAPED!\n";
-                cout << "=================================\n";
-                cout << "\nCongratulations! You found the key and escaped.\n";
+                printArt("ascii/escape.txt");
                 return 0;
             }
             else
             {
+                printArt("ascii/locked_door.txt");
                 cout << "\nThe door is still locked.\n";
                 cout << "You need to find the key first.\n";
             }
@@ -288,6 +312,7 @@ int main()
         }
         case 5:
         {
+            printArt("ascii/quit.txt");
             cout << "Thanks for Playing.\n";
             return 0;
         }
