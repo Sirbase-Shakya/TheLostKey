@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <chrono>
+#include <cstdlib>
+#include <windows.h>
 using namespace std;
 
 bool hasPrimKey = false;
@@ -12,6 +15,7 @@ bool enterBedroom = false;
 bool enterLibrary = false;
 bool enterBasement = false;
 bool drawerOpened = false;
+bool gameFinished = false;
 
 void printArt(string filename)
 {
@@ -31,6 +35,38 @@ void printArt(string filename)
     }
 
     file.close();
+}
+void badEnding()
+{
+    cout << "\n\n";
+    cout << "========================================\n";
+    cout << " TIME'S UP\n";
+    cout << "========================================\n\n";
+    printArt("ascii/bad_ending.txt");
+    cout << "\nThe rain outside suddenly becomes louder...\n";
+    cout << "You hear footsteps somewhere inside the house.\n";
+    cout << "You realize that you have spent too much time searching.\n\n";
+    cout << "The opportunity to escape is gone.\n";
+    cout << "You failed to uncover the secret of the house in time.\n\n";
+    cout << "========================================\n";
+    cout << " BAD ENDING\n";
+    cout << " INCOMPLETION\n";
+    cout << "========================================\n\n";
+    cout << "The story remains unfinished...\n";
+    cout << "GAME OVER.\n";
+}
+
+DWORD WINAPI gameTimer(LPVOID lpParam)
+{
+
+    Sleep(60000);
+    if (!gameFinished)
+    {
+        badEnding();
+        ExitProcess(0);
+    }
+
+    return 0;
 }
 
 void bedroom()
@@ -252,6 +288,15 @@ void basement()
 
 int main()
 {
+    HANDLE timerThread;
+
+    timerThread = CreateThread(
+        NULL,
+        0,
+        gameTimer,
+        NULL,
+        0,
+        NULL);
     printArt("ascii/title.txt");
     cout << "You wake up in a dark room. Rain pounds against the windows, and the lights are out." << endl
          << "You try the front door, but it's locked." << endl
@@ -300,6 +345,7 @@ int main()
                 cout << "You run outside into the rain.\n\n";
 
                 printArt("ascii/escape.txt");
+                gameFinished = true;
                 return 0;
             }
             else
