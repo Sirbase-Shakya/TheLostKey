@@ -59,7 +59,7 @@ void badEnding()
 DWORD WINAPI gameTimer(LPVOID lpParam)
 {
 
-    Sleep(60000);
+    Sleep(120000);
     if (!gameFinished)
     {
         badEnding();
@@ -337,7 +337,7 @@ int main()
         {
             if (hasPrimKey)
             {
-                cout << "\nYou take out the rusty key.\n";
+                cout << "\nYou take out the shiny key.\n";
                 cout << "You insert it into the lock...\n";
                 cout << "CLICK!\n\n";
 
