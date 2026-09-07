@@ -42,6 +42,7 @@ void badEnding()
     cout << "========================================\n";
     cout << " TIME'S UP\n";
     cout << "========================================\n\n";
+    clearScreen();
     printArt("ascii/bad_ending.txt");
     cout << "\nThe rain outside suddenly becomes louder...\n";
     cout << "You hear footsteps somewhere inside the house.\n";
@@ -68,10 +69,15 @@ DWORD WINAPI gameTimer(LPVOID lpParam)
 
     return 0;
 }
+void clearScreen()
+{
+    system("cls");
+}
 
 void bedroom()
 {
     int choice;
+    clearScreen();
     printArt("ascii/bedroom.txt");
     if (!enterBedroom)
     {
@@ -115,6 +121,7 @@ void bedroom()
         }
         if (hasMainPhoto && !hasPrimKey)
         {
+            clearScreen();
             printArt("ascii/bedroom_broken.txt");
             cout << "You show the photo of the owner to the mirror.\n";
             cout << "The cracked mirror shatters and reveals a shiny key.\n";
@@ -122,6 +129,7 @@ void bedroom()
         }
         else if (hasPrimKey)
         {
+            clearScreen();
             printArt("ascii/bedroom_broken.txt");
             cout << "The mirror is already shattered.\n";
         }
@@ -163,7 +171,7 @@ void bedroom()
 void library()
 {
     int choice;
-
+    clearScreen();
     printArt("ascii/library.txt");
     if (!enterLibrary)
     {
@@ -219,7 +227,7 @@ void library()
 void basement()
 {
     int choice;
-
+    clearScreen();
     printArt("ascii/basement.txt");
     if (!enterBasement)
     {
@@ -248,6 +256,7 @@ void basement()
             }
             else
             {
+                clearScreen();
                 printArt("ascii/basement.txt");
                 cout << "The chest is locked somehow.\n";
                 cout << "Maybe there is a clue somewhere else in the house.\n";
@@ -263,6 +272,7 @@ void basement()
     {
         if (!hasFlashlight)
         {
+            clearScreen();
             printArt("ascii/basement.txt");
             cout << "\nYou search the room and find an old flashlight.\n";
             cout << "Unfortunately, it has no batteries.\n";
@@ -270,6 +280,7 @@ void basement()
         }
         else
         {
+            clearScreen();
             printArt("ascii/basement.txt");
             cout << "\nYou search the basement again but find nothing.\n";
         }
@@ -297,6 +308,7 @@ int main()
         NULL,
         0,
         NULL);
+    clearScreen();
     printArt("ascii/title.txt");
     cout << "You wake up in a dark room. Rain pounds against the windows, and the lights are out." << endl
          << "You try the front door, but it's locked." << endl
@@ -337,6 +349,7 @@ int main()
         {
             if (hasPrimKey)
             {
+                clearScreen();
                 cout << "\nYou take out the shiny key.\n";
                 cout << "You insert it into the lock...\n";
                 cout << "CLICK!\n\n";
@@ -358,6 +371,7 @@ int main()
         }
         case 5:
         {
+            clearScreen();
             printArt("ascii/quit.txt");
             cout << "Thanks for Playing.\n";
             return 0;
